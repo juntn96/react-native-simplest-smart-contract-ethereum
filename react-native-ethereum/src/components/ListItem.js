@@ -24,7 +24,9 @@ class ListItem extends Component {
                     style={styles.image}
                     source={item.picture}
                 />
-                <BuyButton />
+                <BuyButton
+                    item={item}
+                 />
             </View>
         )
     }

@@ -14,7 +14,9 @@ class Home extends Component {
     }
 
     componentWillMount() {
-
+        // const contract = require('truffle-contract')
+        // const possession = contract(cars)
+        // console.log('pos: ', possession)
     }
 
     _keyExtractor = item => item.id
