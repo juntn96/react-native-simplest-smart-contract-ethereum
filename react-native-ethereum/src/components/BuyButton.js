@@ -5,38 +5,54 @@ import {
     Dimensions,
     Text,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    ActivityIndicator
 } from 'react-native'
 
 import '../../global';
 import PossessionContract from '../../build/contracts/Possession.json'
-import Web3 from 'web3'
+// import Web3 from 'web3'
+import getWeb3 from '../utils/getWeb3'
 
 const contract = require('truffle-contract')
-// const web3 = new Web3(
-//     new Web3.providers.HttpProvider('https://core.tomocoin.io/')
-// );
-// var provider = new Web3.providers.HttpProvider('https://core.tomocoin.io/')
-// var web3 = new Web3(provider)
 
 class BuyButton extends Component {
 
-    state = {
-        bought: false
+    constructor(props) {
+        super(props)
+        this.state = {
+            bought: false,
+            web3: null,
+            loading: false
+        }
     }
 
+    componentWillMount() {
+        getWeb3
+            .then(results => {
+                this.setState({
+                    web3: results.web3
+                })
+                console.log('web3: ', this.state.web3)
+            })
+            .catch(() => {
+                console.log('Error finding web3.')
+            })
+    }
+    
     _onPress = async () => {
 
-        this.setState({ bought: true })
+        if (this.state.loading) {
+            return
+        }
+
+        this.setState({loading: true})
+
+        const web3 = this.state.web3
+
+        // this.setState({ bought: true })
 
         const carId = this.props.item.id
-
-        const provider = await new Web3.providers.HttpProvider('https://core.tomocoin.io/')
-
-        console.log('prod: ', provider)
-
-        const web3 = await new Web3(provider)
-        // console.log('web3: ', web3)
 
         const possession = contract(PossessionContract)
         possession.setProvider(web3.currentProvider)
@@ -46,6 +62,7 @@ class BuyButton extends Component {
         console.log('provider: ', web3.currentProvider)
 
         console.log(possession)
+
         web3.eth.getCoinbase(async (error, coinbase) => {
             if (error) {
                 console.error(error)
@@ -57,15 +74,21 @@ class BuyButton extends Component {
 
             console.log('instance: ', possessionInstance)
 
-            const result = await possessionInstance.buy(carId, { from: coinbase })
-            console.log('result: ', result)
-            this.setState({ bought: false })
+            possessionInstance.buy(carId, { from: coinbase }).then((result) => {
+                console.log('result: ', result)
+
+            }).catch((error) => {
+                console.log('error: ', error)
+
+            })
+            this.setState({ bought: true })
+            this.setState({loading: false})
         })
     }
 
     render() {
 
-        const { bought } = this.state
+        const { bought, loading } = this.state
 
         return (
             <TouchableOpacity
@@ -76,11 +99,19 @@ class BuyButton extends Component {
                     backgroundColor: !bought ? '#ff0000' : '#00cc00',
                 }]}
             >
-                <Text
-                    style={styles.text}
-                >
-                    {!bought ? 'Buy Now' : 'Bought'}
-                </Text>
+                {loading ?
+                    <ActivityIndicator
+                        color={'#FFF'}
+                        style={{
+                            width: 30,
+                            height: 30
+                        }}
+                    /> :
+                    <Text
+                        style={styles.text}
+                    >
+                        {!bought ? 'Buy Now' : 'Bought'}
+                    </Text>}
             </TouchableOpacity>
         )
     }

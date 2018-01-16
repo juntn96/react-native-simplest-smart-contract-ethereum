@@ -819,19 +819,14 @@
     "3": {
       "events": {},
       "links": {},
-      "address": "0x7d7395997999f77eedd6b45cdcaa9d2517e07cc1"
-    },
-    "4447": {
-      "events": {},
-      "links": {},
-      "address": "0xf12b5dd4ead5f743c6baa640b0216200e89b60da"
+      "address": "0xb860df0d2171d830f927ca0c0f70cb74c5f6d667"
     },
     "40686": {
       "events": {},
       "links": {},
-      "address": "0x059e17ceb15ef8470b7184b858d356317518aab3"
+      "address": "0xf426505ac145abe033fe77c666840063757be9cd"
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-01-16T09:19:52.545Z"
+  "updatedAt": "2018-01-16T16:03:49.836Z"
 }

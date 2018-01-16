@@ -8,20 +8,20 @@ module.exports = {
       provider: function () {
         return new HDWalletProvider(mnemonic, "https://kovan.infura.io/")
       },
-      network_id: 3
+      network_id: '*'
     },
     core: {
       provider: function () {
         return new HDWalletProvider(mnemonic, "https://core.tomocoin.io/")
       },
-      network_id: 4,
+      network_id: '*',
       gas: 1000000
     },
     ropsten: {
       provider: function () {
         return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/")
       },
-      network_id: 5,
+      network_id: '*',
       gas: 500000
     },
   }
