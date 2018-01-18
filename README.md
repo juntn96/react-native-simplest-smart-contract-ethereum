@@ -1,12 +1,32 @@
 # react-native-simplest-smart-contract-ethereum
-Reference:
+# Reference:
 - http://truffleframework.com/tutorials/pet-shop
 - https://web3js.readthedocs.io/en/1.0/getting-started.html
 - https://medium.com/vischub/s%E1%BB%AD-d%E1%BB%A5ng-metamask-k%E1%BA%BFt-n%E1%BB%91i-v%E1%BB%9Bi-vietnam-ethereum-testnet-77512c6d7387
 
-Build Project:
-- Clone project
-- Go into downloaded folder
-- npm install
-- npm start
-- open Expo on your mobile and scan QRCode
+# Installation:
+  1. Install Truffle globally.
+  ```sh
+  npm install -g truffle
+  ```
+  2. Clone project
+  3. Go into downloaded folder
+  4. Open cmd and run the truffle development console
+  ```sh
+  truffle develop
+  ```
+  (Note: if using window, maybe you need truffle.cmd develop to start command)
+  5. Compile and migrate the smart contract
+  ```sh
+  compile
+  migrate --network core
+  ```
+  6. Open other cmd to install npm
+  ```sh
+  npm install
+  ```
+  7. Start project
+  ```sh
+  npm start
+  ```
+  8. Download expo (CHplay or App store) on your mobile and scan QRCode
