@@ -11,6 +11,9 @@ module.exports = {
       network_id: '*'
     },
     core: {
+      // get 20 ETH to test here
+      // http://faucet.visc.network/
+      // ref: https://medium.com/vischub/s%E1%BB%AD-d%E1%BB%A5ng-metamask-k%E1%BA%BFt-n%E1%BB%91i-v%E1%BB%9Bi-vietnam-ethereum-testnet-77512c6d7387
       provider: function () {
         return new HDWalletProvider(mnemonic, "https://core.tomocoin.io/")
       },

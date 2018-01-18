@@ -13,12 +13,6 @@ class Home extends Component {
         super(props)
     }
 
-    componentWillMount() {
-        // const contract = require('truffle-contract')
-        // const possession = contract(cars)
-        // console.log('pos: ', possession)
-    }
-
     _keyExtractor = item => item.id
 
     _renderItem = ({ item }) => {

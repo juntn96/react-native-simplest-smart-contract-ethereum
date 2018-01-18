@@ -680,6 +680,16 @@
       "links": {},
       "address": "0x966fc1b596ca733706ada8cbea9db34aab272569"
     },
+    "42": {
+      "events": {},
+      "links": {},
+      "address": "0x2ba10a77d89d42a92497ff545434625ec5535494"
+    },
+    "4447": {
+      "events": {},
+      "links": {},
+      "address": "0x82d50ad3c1091866e258fd0f1a7cc9674609d254"
+    },
     "40686": {
       "events": {},
       "links": {},
@@ -687,5 +697,5 @@
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-01-16T16:03:49.836Z"
+  "updatedAt": "2018-01-18T02:48:26.224Z"
 }

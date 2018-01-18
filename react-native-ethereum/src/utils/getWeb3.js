@@ -1,8 +1,10 @@
 import Web3 from 'web3'
 
-let getWeb3 = new Promise(function (resolve, reject) {
+const getWeb3 = new Promise(function (resolve, reject) {
+    // replace with your testnet
+    const httpProvider = 'https://core.tomocoin.io/'
     // Wait for loading completion to avoid race conditions with web3 injection timing.
-    var provider = new Web3.providers.HttpProvider('https://core.tomocoin.io/')
+    const provider = new Web3.providers.HttpProvider(httpProvider)
     web3 = new Web3(provider)
     results = {
         web3: web3

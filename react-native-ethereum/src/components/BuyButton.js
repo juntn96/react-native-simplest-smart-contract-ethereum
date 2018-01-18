@@ -6,7 +6,9 @@ import {
     Text,
     TouchableOpacity,
     StyleSheet,
-    ActivityIndicator
+    ActivityIndicator,
+    Alert,
+    Clipboard
 } from 'react-native'
 
 import '../../global';
@@ -23,7 +25,8 @@ class BuyButton extends Component {
         this.state = {
             bought: false,
             web3: null,
-            loading: false
+            loading: false,
+            tx: null
         }
     }
 
@@ -33,57 +36,59 @@ class BuyButton extends Component {
                 this.setState({
                     web3: results.web3
                 })
-                console.log('web3: ', this.state.web3)
             })
             .catch(() => {
                 console.log('Error finding web3.')
             })
     }
-    
-    _onPress = async () => {
 
-        if (this.state.loading) {
-            return
-        }
-
-        this.setState({loading: true})
+    _onBuyPress = () => {
+        this.setState({ loading: true })
 
         const web3 = this.state.web3
-
-        // this.setState({ bought: true })
-
         const carId = this.props.item.id
 
         const possession = contract(PossessionContract)
         possession.setProvider(web3.currentProvider)
-
-        var possessionInstance
-
-        console.log('provider: ', web3.currentProvider)
-
-        console.log(possession)
-
-        web3.eth.getCoinbase(async (error, coinbase) => {
+  
+        web3.eth.getCoinbase( async (error, coinbase) => {
             if (error) {
                 console.error(error)
             }
 
             console.log('coin base: ', coinbase)
 
-            possessionInstance = await possession.deployed()
-
-            console.log('instance: ', possessionInstance)
-
-            possessionInstance.buy(carId, { from: coinbase }).then((result) => {
-                console.log('result: ', result)
-
-            }).catch((error) => {
-                console.log('error: ', error)
-
-            })
-            this.setState({ bought: true })
-            this.setState({loading: false})
+            const possessionInstance = await possession.deployed()
+            possessionInstance.buy(carId, { from: coinbase })
+                .then((result) => {
+                    console.log('result: ', result)
+                    this._showAlert(result.tx)
+                    this.setState({
+                        bought: true,
+                        loading: false,
+                        tx: result.tx
+                    })
+                }).catch((error) => {
+                    console.log('error: ', error)
+                    this.setState({ loading: false })
+                })
         })
+    }
+
+    _onShowTxPress = () => {
+        const tx = this.state.tx
+        this._showAlert(tx)
+    }
+
+    _showAlert = (tx) => {
+        Alert.alert(
+            'Success',
+            'Tx Hash: ' + tx,
+            [
+                { text: 'Ok', style: 'cancel' },
+                { text: 'Copy', onPress: () => { Clipboard.setString(tx) } }
+            ]
+        )
     }
 
     render() {
@@ -93,8 +98,8 @@ class BuyButton extends Component {
         return (
             <TouchableOpacity
                 activeOpacity={0.75}
-                disabled={bought}
-                onPress={this._onPress}
+                disabled={loading}
+                onPress={!bought ? this._onBuyPress : this._onShowTxPress}
                 style={[styles.button, {
                     backgroundColor: !bought ? '#ff0000' : '#00cc00',
                 }]}
@@ -110,7 +115,7 @@ class BuyButton extends Component {
                     <Text
                         style={styles.text}
                     >
-                        {!bought ? 'Buy Now' : 'Bought'}
+                        {!bought ? 'Buy Now' : 'Show Tx Hash'}
                     </Text>}
             </TouchableOpacity>
         )
