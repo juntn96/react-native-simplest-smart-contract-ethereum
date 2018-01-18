@@ -14,13 +14,14 @@
   4. Open cmd and run the truffle development console
   ```sh
   truffle develop
-  // if using window
+  // or if using window
   truffle.cmd develop
   ```
   5. Compile and migrate the smart contract
   ```sh
   compile
   migrate --network core
+  // you can migrate with your testnet
   ```
   6. Open other cmd to install npm
   ```sh
