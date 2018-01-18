@@ -14,9 +14,9 @@
   4. Open cmd and run the truffle development console
   ```sh
   truffle develop
+  // if using window
+  truffle.cmd develop
   ```
-  (Note: if using window, maybe you need truffle.cmd develop to start command)
-  
   5. Compile and migrate the smart contract
   ```sh
   compile
