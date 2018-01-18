@@ -15,7 +15,7 @@
   ```sh
   truffle develop
   ```
-    (Note: if using window, maybe you need truffle.cmd develop to start command)
+  (Note: if using window, maybe you need truffle.cmd develop to start command)
   
   5. Compile and migrate the smart contract
   ```sh
